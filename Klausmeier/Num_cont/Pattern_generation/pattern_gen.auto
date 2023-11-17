@@ -1,0 +1,24 @@
+# Pattern generation
+# Author: Lukas Eigentler (lukas.eigentler@uni-bielefeld.de)
+# License: GNU GPL
+# Last updated: 17/11/2023
+
+import numpy as np
+for Atarget in np.arange(1.4,1.45,0.05):
+	Ltarget = 20
+	r1 = run(e='klausmeier_ptw',c='klausmeier_ptw.stat')
+	r1 = relabel(r1)
+	r2 = run(r1('HB1'),c='klausmeier_ptw.periodic_cont',ICP =  ['A', 11, 'A', 'c','u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {'A': Atarget}, STOP = ['UZ1'], DS = -1e-2)
+	r2 = relabel(r2)
+
+	#r2 = run(r2('UZ1'), c='klausmeier_ptw.periodic_cont', ICP =  ['A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {'A': Atarget}, STOP = ['UZ1'], DS = -1e-2)
+	#r2 = relabel(r2)
+	r2 = run(r2('UZ1'), c='klausmeier_ptw.periodic_cont', ICP =  ['c', 11, 'A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {11: Ltarget}, STOP = ['UZ1'], DS = -1e-3)
+	cd("output/")
+	filename_single = "ptw"
+	filename = "ptw_A"+str(Atarget)+"_L"+str(Ltarget)
+	filename1 = filename.replace('.','dot')
+	save(r2,filename_single)
+	cd("../")
+
+print("Done")

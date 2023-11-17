@@ -1,0 +1,45 @@
+import os
+import csv
+
+cfile = open("countfile.dat")
+for line in cfile:
+	line = line.strip()
+	runind = int(line)
+	
+	
+with open("countfile.dat", "w") as cfile:
+	cfile.write(str(runind+1))
+			
+
+runind = runind
+Lrun = 15
+
+filename = "delta_list.dat"
+with open(filename) as infile:
+	nestedlist = []
+	for line in infile:
+		x = (line.split('	'))
+		newx = []
+		for xx in x:
+			newx.append(float(xx))
+			
+		nestedlist.append(newx)
+	deltatarget = nestedlist[0][runind]
+
+		
+os.chdir("../Pattern_generation")
+path = os.getcwd()
+print(path)
+
+# pattern generation
+
+r1 = run(e='mussels_ptw',c='mussels_ptw.stat')
+r1 = relabel(r1)
+r2 = run(r1('HB1'),c='mussels_ptw.periodic_cont',ICP =  ['delta', 11, 'delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZR = {'delta': deltatarget}, STOP = ['UZ1'], DS = -1e-2)
+r2 = relabel(r2)
+r2 = run(r2('UZ1'),c='mussels_ptw.periodic_cont',ICP =  ['c', 11, 'delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZR = {11: Lrun}, STOP = ['UZ1'], DS = -1e-2, DSMAX = 1e-3)
+cd output/
+save(r2,'ptw')
+cd ../../
+
+print("Continue by solving matrix eigenvalue problem in Matlab")

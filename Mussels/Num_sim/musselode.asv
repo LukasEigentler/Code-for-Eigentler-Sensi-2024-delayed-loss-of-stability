@@ -1,0 +1,25 @@
+function dcombineddt = musselode(t,v,B,nu,d,M,dx,kt,delta_vec)
+
+
+dcombineddt = zeros(3*M,1);
+delta = interp1(kt,delta_vec,t);
+
+
+cc=2:(M-1);
+
+% m eq
+dcombineddt(1)  = delta*v(M+1).*v(1).*(v(2*M+1)+eta)./(v(2*M+1)+1)     - v(1)   +(v(2)-2*v(1)+v(M))/(dx^2);
+dcombineddt(cc) = delta*v(M+cc).*v(cc).*(v(2*M+cc)+eta)./(v(2*M+cc)+1) - v(cc)  +(v(cc+1)-2*v(cc)+v(cc-1))/(dx^2);
+dcombineddt(M)  = delta*v(2*M).*v(M).*(v(3*M)+eta)./(v(3*M+M)+1)       - v(M)   +(v(1)-2*v(M)+v(M-1))/(dx^2);
+
+
+% a eq
+dcombineddt(M+1)  =  1 - alpha*v(M+cc) - beta*v(M+1).*v(1).*(v(2*M+1)+eta)./(v(2*M+1)+1)      + nu*(v(M+2)-v(M+1))/dx      ;
+dcombineddt(M+cc) =  1 - alpha*v(M+cc) - beta*v(M+cc).*v(cc).*(v(2*M+cc)+eta)./(v(2*M+cc)+1)  + nu*(v(M+cc+1)-v(M+cc))/dx ;
+dcombineddt(2*M)  =  1 - alpha*v(M+cc) - beta*v(2*M).*v(M).*(v(3*M)+eta)./(v(3*M+M)+1)        + nu*(v(M+1)-v(2*M))/dx     ;
+
+% s eq
+dcombineddt(2*M+1)  =   D*+(v(2*M+2)-2*v(2*M+1)+v(3M))/(dx^2);
+dcombineddt(2*M+cc) =  D*+(v(cc+1)-2*v(cc)+v(cc-1))/(dx^2);
+dcombineddt(3*M)    =   D*+(v(1)-2*v(M)+v(M-1))/(dx^2);
+

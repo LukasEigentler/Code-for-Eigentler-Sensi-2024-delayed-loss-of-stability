@@ -1,0 +1,8 @@
+r1 = run(e='mussels_ptw',c='mussels_ptw.stat')
+r1 = relabel(r1)
+r2 = run(r1('HB1'),c='mussels_ptw.periodic_cont', UZR = {11:1e3}, STOP = ['UZ1'])
+r2 = relabel(r2)
+r3 = run(r2('UZ1'), c='mussels_ptw.periodic_cont', ICP =  ['delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZSTOP = {'delta':400.0, 'delta':0, 11:1000,'c':10.0, 'c':1e-3}, DS = 1e-2)
+r3 = r3 + run(r2('UZ1'), c='mussels_ptw.periodic_cont', ICP =  ['delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZSTOP = {'delta':400.0, 'delta':0, 11:1000,'c':10.0, 'c':1e-3}, DS = -1e-2, STOP = ['LP2'])
+r3 = relabel(r3)
+save(r3,'homoclinic')

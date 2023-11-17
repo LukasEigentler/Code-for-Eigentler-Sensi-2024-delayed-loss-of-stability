@@ -1,0 +1,14 @@
+import numpy as np
+for deltatarget in np.arange(289.2,290.2,1):
+	Ltarget = 15
+	r1 = run(e='mussels_ptw',c='mussels_ptw.stat')
+	r1 = relabel(r1)
+	r2 = run(r1('HB1'),c='mussels_ptw.periodic_cont',ICP =  ['delta', 11, 'delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZR = {'delta': deltatarget}, STOP = ['UZ1'], DS = -1e-2)
+	r2 = relabel(r2)
+	r2 = run(r2('UZ1'),c='mussels_ptw.periodic_cont',ICP =  ['c', 11, 'delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZR = {11: Ltarget}, STOP = ['UZ1'], DS = -1e-2)
+	cd("output/")
+	filename1 = "ptw"
+	filename = "ptw_delta"+str(deltatarget)+"_L"+str(Ltarget)
+	filename = filename.replace('.','dot')
+	save(r2,filename)
+	cd("../")

@@ -1,0 +1,16 @@
+unames = {1: 'u1', 2: 'u1p', 3:'w',4:'wp'}
+parnames = {1: 'A', 2: 'B1', 3: 'd', 4:'nu', 5:'c', 15:'u1(L2)', 16:'w(L2)', 17:'w(L2)', 18:'min w', 19:'max w', 20:'min u1', 21:'max u1'}
+NDIM=   4, IPS =   2, IRS =   2, ILP =   1
+
+ICP =  ['A', 11, 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1']
+
+NTST=  100, NCOL=   4, IAD =   3, ISP =   2, ISW = 1, IPLT= 1, NBC= 0, NINT= 0
+NMX=  50000, NPR=  500, MXBF=  10, IID =   2, ITMX= 8, ITNW= 7, NWTN= 3, JAC= 0
+EPSL= 1e-07, EPSU = 1e-07, EPSS = 1e-05
+
+
+DS  =   1e-3, DSMIN=  1e-15, DSMAX=  1e-2, IADS=   1
+NPAR = 23, THL =  {11: 0.0}, THU =  {}
+UZSTOP = ['A':20.0, 'A':0, 11:100000,'c':10.0, 'c':1e-3]
+!UZR = {'A': 1.1}
+!STOP = ['UZ1']

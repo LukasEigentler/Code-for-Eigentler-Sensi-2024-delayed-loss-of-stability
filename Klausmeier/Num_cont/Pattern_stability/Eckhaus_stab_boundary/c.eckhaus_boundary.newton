@@ -1,0 +1,11 @@
+!unames = {1: 'u1', 2: 'u1p',  3:'w',4:'wp', 5:'alpha_1_real',6:'alpha_2_real',7:'alpha_5_real',8:'alpha_6_real',9:'alpha_1_imag',10:'alpha_2_imag',11:'alpha_5_imag',12:'alpha_6_imag'}
+parnames = {1: 'A', 2: 'L', 3: 'd', 4:'chi', 5:'gamma', 6:'nu', 7:'c', 8:'lambda_real', 9:'lambda_imag', 12:'B1', 13:'F2', 14:'H2', 15:'b2', 16:'D2', 17:'imaglambda_gamma', 18:'reallambda_gamma2', 19:'dummy', 20:'k1'}
+dat = 'gamma_0_sol.dat'
+NDIM=   20, IPS =   4, IRS =   0, ILP =   0
+ICP =  ['dummy', 'lambda_real', 'lambda_imag', 'imaglambda_gamma', 'reallambda_gamma2', 'L']
+NTST=  100, NCOL=   4, IAD =   3, ISP =   0, ISW = 1, IPLT= 0, NBC= 20, NINT= 5
+NMX=  2, NPR=  1, MXBF=  10, IID =   2, ITMX= 8, ITNW= 7, NWTN= 3, JAC= 0
+EPSL= 1e-07, EPSU = 1e-07, EPSS = 1e-05
+DS  =   1e-2, DSMIN= 1e-8, DSMAX=  1e-1, IADS=   1
+NPAR = 20, THL =  {}, THU =  {}
+UZSTOP = {5:  6.28318530718, 5:-6.283} 

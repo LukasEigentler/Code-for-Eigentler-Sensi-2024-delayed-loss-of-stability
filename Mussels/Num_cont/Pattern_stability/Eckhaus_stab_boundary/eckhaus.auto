@@ -1,0 +1,8 @@
+# Find and trace stability change of Eckhaus type
+r1 = run(e='eckhaus_boundary', c='eckhaus_boundary.newton')
+r1 = relabel(r1)
+r2 = run(r1('EP2'),c='eckhaus_boundary.reallambda_gamma_2',DS = -1e-2)
+r2 = relabel(r2)
+r3 = run(r2('UZ1'),c='eckhaus_boundary.Ac_plane', DS = -1e-2)
+r4 = r3 + run(r2('UZ1'),c='eckhaus_boundary.Ac_plane', DS = 1e-2)
+save(r4,'eckhaus_deltac_new')

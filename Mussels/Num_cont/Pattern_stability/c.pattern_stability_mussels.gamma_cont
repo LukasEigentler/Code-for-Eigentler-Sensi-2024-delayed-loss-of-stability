@@ -1,0 +1,12 @@
+unames = {1: 'm', 2: 'mp', 3:'a',4:'s',5:'sp'}
+parnames = {1: 'alpha', 2: 'beta', 3: 'd', 4:'nu', 5:'c', 6:'delta', 7:'eta', 8:'theta', 9:'Re lambda', 10:'Im lambda', 12:'gamma', 13:'L'}
+dat = 'gamma_0_sol.dat'
+NDIM=   15, IPS =   4, IRS =   0, ILP =   0
+ICP =  ['gamma', 'Re lambda', 'Im lambda', 'L']
+NTST=  300, NCOL=   4, IAD =   3, ISP =   0, ISW = 1, IPLT= 0, NBC= 15, NINT= 3
+NMX=  1000, NPR=  1000, MXBF=  10, IID =   2, ITMX= 8, ITNW= 7, NWTN= 3, JAC= 0
+EPSL= 1e-07, EPSU = 1e-07, EPSS = 1e-05
+DS  =   1e-3, DSMIN= 1e-4, DSMAX=  1e-1, IADS=   1
+NPAR = 17, THL =  {}, THU =  {}
+UZSTOP = {'gamma': 6.283, 'gamma':-6.283} 
+!STOP = ['LP1']

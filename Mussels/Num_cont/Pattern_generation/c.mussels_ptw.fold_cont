@@ -1,0 +1,12 @@
+unames = {1: 'm', 2: 'mp', 3:'a',4:'s',5:'sp'}
+parnames = {1: 'alpha', 2: 'beta', 3: 'd', 4:'nu', 5:'c', 6:'delta', 7:'eta', 8:'theta', 15:'m(L2)', 16:'a(L2)', 17:'a(L2)', 18:'min a', 19:'max a', 20:'min m', 21:'max m'}
+NDIM=   5, IPS =   2, IRS =   2, ILP =   1
+ICP =  [ 'c','delta', 11, 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m']
+NTST=  100, NCOL=   4, IAD =   3, ISP =   2, ISW = 2, IPLT= 1, NBC= 0, NINT= 0
+NMX=  5000, NPR=  500, MXBF=  10, IID =   2, ITMX= 8, ITNW= 7, NWTN= 3, JAC= 0
+EPSL= 1e-07, EPSU = 1e-07, EPSS = 1e-05
+DS  =   1e-3, DSMIN=  1e-6, DSMAX=  1e-2, IADS=   1
+NPAR = 23, THL =  {11: 0.0}, THU =  {}
+UZSTOP = ['c':5, 'c':1e-3, 'c':0, 'delta':0]
+UZR = {'delta': 1.1}
+!STOP = ['LP1']

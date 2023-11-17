@@ -1,0 +1,18 @@
+# Continuation of wavelength contours
+# Author: Lukas Eigentler (lukas.eigentler@uni-bielefeld.de)
+# License: GNU GPL
+# Last updated: 17/11/2023
+
+Lcol =  [150]
+
+for L in Lcol:
+	r1 = run(e='klausmeier_ptw',c='klausmeier_ptw.stat')
+	r1 = relabel(r1)
+	r2 = run(r1('HB1'),c='klausmeier_ptw.periodic_cont',UZR = {11: L}, STOP = ['UZ1'], UZSTOP = {11:L})
+	r2 = relabel(r2)
+	r3 = run(r2('UZ1'),c='klausmeier_ptw.periodic_cont', ICP =  ['A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {'c': 1e-3, 'c': 5}, STOP = ['UZ1'], DS = 1e-3)
+	r3 = r3 + run(r2('UZ1'),c='klausmeier_ptw.periodic_cont', ICP =  ['A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {'c': 1e-3, 'c': 5}, STOP = ['UZ1'], DS = -1e-3)
+	cd ('Wavelength_cont/')
+	filename = "wavelength_contour_"+str(L)
+	save(r3,filename)
+	cd('../')

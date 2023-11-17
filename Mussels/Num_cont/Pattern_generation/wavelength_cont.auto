@@ -1,0 +1,15 @@
+
+
+Lcol =  range(36,41,1)
+
+for L in Lcol:
+	r1 = run(e='mussels_ptw',c='mussels_ptw.stat')
+	r1 = relabel(r1)
+	r2 = run(r1('HB1'),c='mussels_ptw.periodic_cont',UZR = {11: L}, STOP = ['UZ1'], UZSTOP = {11:L})
+	r2 = relabel(r2)
+	r3 = run(r2('UZ1'),c='mussels_ptw.periodic_cont', ICP =  ['delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZR = {'c': 1e-3, 'c': 5, 'delta':335.0}, STOP = ['UZ1'], DS = -1e-1,DSMAX=  0.1, ILP=1)
+	r3 = r3 + run(r2('UZ1'),c='mussels_ptw.periodic_cont', ICP =  ['delta', 'c', 'm(L2)', 'a(L2)', 'min a', 'max a', 'min m'], UZR = {'c': 1e-3, 'c': 5}, STOP = ['LP2'], DS = 1e-1, DSMAX=  0.1, ILP=1)
+	cd ('Wavelength_cont/')
+	filename = "wavelength_contour_"+str(L)
+	save(r3,filename)
+	cd('../')

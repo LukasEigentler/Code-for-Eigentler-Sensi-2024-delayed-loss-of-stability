@@ -1,0 +1,16 @@
+# Continuation of the fold
+# Author: Lukas Eigentler (lukas.eigentler@uni-bielefeld.de)
+# License: GNU GPL
+# Last updated: 17/11/2023
+
+r1 = run(e='klausmeier_ptw',c='klausmeier_ptw.stat')
+r1 = relabel(r1)
+r2 = run(r1('HB1'),c='klausmeier_ptw.periodic_cont',STOP = ['LP10'])
+r2 = relabel(r2)
+
+r31 = run(r2('LP1'), c='klausmeier_ptw.fold_cont', DS  =   1e-4)
+r31 = relabel(r31)
+r3 = run(r31('EP1'), c='klausmeier_ptw.fold_cont', DS  =   -1e-4)
+r3 = r3 + run(r31('EP1'), c='klausmeier_ptw.fold_cont', DS  =   1e-4)
+r3 = relabel(r3)
+save(r3,'fold')

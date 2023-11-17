@@ -1,0 +1,52 @@
+# Author: Lukas Eigentler (lukas.eigentler@uni-bielefeld.de)
+# License: GNU GPL
+# Last updated: 17/11/2023
+
+import os
+import csv
+
+cfile = open("countfile.dat")
+for line in cfile:
+	line = line.strip()
+	runind = int(line)
+	
+	
+with open("countfile.dat", "w") as cfile:
+	cfile.write(str(runind+1))
+			
+
+runind = runind
+Lrun = 20
+
+filename = "A_list.dat"
+with open(filename) as infile:
+	nestedlist = []
+	for line in infile:
+		x = (line.split('	'))
+		newx = []
+		for xx in x:
+			newx.append(float(xx))
+			
+		nestedlist.append(newx)
+	Atarget = nestedlist[0][runind]
+
+		
+os.chdir("../Pattern_generation")
+path = os.getcwd()
+print(path)
+
+# pattern generation
+
+r1 = run(e='klausmeier_ptw',c='klausmeier_ptw.stat')
+r1 = relabel(r1)
+r2 = run(r1('HB1'),c='klausmeier_ptw.periodic_cont',ICP =  ['A', 11, 'A', 'c','u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {'A': Atarget}, STOP = ['UZ1'], DS = -1e-2)
+r2 = relabel(r2)
+
+#r2 = run(r2('UZ1'), c='klausmeier_ptw.periodic_cont', ICP =  ['A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {'A': 1.8}, STOP = ['UZ1'], DS = -1e-2)
+#r2 = relabel(r2)
+r2 = run(r2('UZ1'), c='klausmeier_ptw.periodic_cont', ICP =  ['c', 11, 'A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZR = {11: Lrun}, STOP = ['UZ1'], DS = -1e-2)
+cd output/
+save(r2,'ptw')
+cd ../../
+
+print("Continue by solving matrix eigenvalue problem in Matlab")

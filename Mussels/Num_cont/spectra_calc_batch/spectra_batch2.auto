@@ -1,0 +1,42 @@
+import os
+import time
+
+os.chdir("../Pattern_stability")
+path = os.getcwd()
+print(path)
+
+# read all eigenvalues from file
+eigenvalues_collection = []
+with open('stab_data/eigenvalues_col.dat') as infile:
+    for line in infile:
+        line = line.strip()
+        eigenvalues_collection.append(map(float, line.split()))
+
+
+spectrum = [] # initialise spectrum output
+# loop over all the eigenvalues
+count = 0
+for eigenvalue in eigenvalues_collection:
+	count = count + 1
+	# write current eigenvalue to the file used in fortran code
+	f = open("eigenvalues.dat","w+")
+	for value in eigenvalue:
+		f.write(str(value))
+		f.write(",\t")
+	f.close()
+	
+	# write the starting ptw and eigenfunction data to the file used in fortran code
+	
+	filename = "stab_data/gamma_0_sol" + str(count) + ".dat";
+	if os.path.isfile('gamma_0_sol.dat'):
+		os.remove('gamma_0_sol.dat')
+	os.rename(filename, 'gamma_0_sol.dat')
+	
+	# run the continuation
+	print("Running continuation for eigenvalue no " + str(count))
+	spectrum = spectrum + run(e='pattern_stability_mussels', c='pattern_stability_mussels.gamma_cont')
+	spectrum = relabel(spectrum)
+	save(spectrum,'spectrum_full')
+	os.remove('gamma_0_sol.dat')
+	
+print("Return to Matlab script")

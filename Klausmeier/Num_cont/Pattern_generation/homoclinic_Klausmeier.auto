@@ -1,0 +1,13 @@
+# Continuation of the homoclinic orbit
+# Author: Lukas Eigentler (lukas.eigentler@uni-bielefeld.de)
+# License: GNU GPL
+# Last updated: 17/11/2023
+
+r1 = run(e='klausmeier_ptw',c='klausmeier_ptw.stat')
+r1 = relabel(r1)
+r2 = run(r1('HB1'),c='klausmeier_ptw.periodic_cont', UZR = {11:1e3}, STOP = ['UZ1'])
+r2 = relabel(r2)
+r3 = run(r2('UZ1'), c='klausmeier_ptw.periodic_cont', ICP =  ['A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZSTOP = {'A':20.0, 'A':0, 11:1000,'c':10.0, 'c':1e-3}, DS = 1e-2)
+r3 = r3 + run(r2('UZ1'), c='klausmeier_ptw.periodic_cont', ICP =  ['A', 'c', 'u1(L2)', 'w(L2)', 'min w', 'max w', 'min u1'], UZSTOP = {'A':20.0, 'A':0, 11:1000,'c':10.0, 'c':1e-3}, DS = -1e-2, STOP = ['LP2'])
+r3 = relabel(r3)
+save(r3,'homoclinic')
