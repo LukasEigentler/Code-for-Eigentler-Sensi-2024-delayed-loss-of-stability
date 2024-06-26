@@ -293,13 +293,20 @@ col = lines;
     end
     discont_ind = [discont_ind, length(spectrum(:,2))];
     spectrum_real = []; spectrum_imag = [];
-    for pp = 1:length(discont_ind)-1     
-        plot(spectrum(discont_ind(pp)+1:discont_ind(pp+1),1),spectrum(discont_ind(pp)+1:discont_ind(pp+1),2), '.', 'linewidth', 2, 'color', col(2,:));
+    for pp = 1:length(discont_ind)-1  
+        % xplot = [xplot, spectrum(discont_ind(pp)+1:discont_ind(pp+1),1)];
+        % yplot = [yplot, spectrum(discont_ind(pp)+1:discont_ind(pp+1),2)];
+        % plot(spectrum(discont_ind(pp)+1:discont_ind(pp+1),1),spectrum(discont_ind(pp)+1:discont_ind(pp+1),2), '.', 'linewidth', 2, 'color', col(2,:));
         spectrum_real = [spectrum_real; spectrum(discont_ind(pp)+1:discont_ind(pp+1),1)];
         spectrum_imag = [spectrum_imag; spectrum(discont_ind(pp)+1:discont_ind(pp+1),2)];
     end
 
-xlim([lambdaM_real_sorted(end-floor(no_eigen/2)),max(spectrum(:,1))])
+    plot(spectrum_real,spectrum_imag, '.', 'linewidth', 2, 'color', col(2,:));
+xlim([lambdaM_real_sorted(end-floor(no_eigen/2)),max(spectrum(:,1))+1])
+ylim([-0.4,0.4])
+[p,z] = zoomPlot(spectrum_real,spectrum_imag,[-0.05 0.05],[0.72 0.16 0.16 0.16],[]); 
+
+
 Astr = num2str(A);
 Astr = strrep(Astr,'.','dot');
 cstr = num2str(L);
@@ -315,8 +322,8 @@ cstr = strrep(cstr,'.','dot');
 set(f,'Windowstyle','normal')
 set(findall(f,'-property','FontSize'),'FontSize',11)
 set(f,'Units','centimeters')
-set(f,'Position',[5.697361111111110 3.033888888888889 8 12])
-% exportgraphics(f,"../../../Mattia_Sensi_Lukas_Eigentler_shared_space/klausmeier_sol_spectra_example.eps", "Resolution", 1000,'ContentType','vector' )
+set(f,'Position',[5.697361111111110 3.033888888888889 12 12])
+% exportgraphics(f,"../../../../Mattia_Sensi_Lukas_Eigentler_shared_space/klausmeier_sol_spectra_example.eps", "Resolution", 1000,'ContentType','vector' )
 
 
 savefig(figfilename)
@@ -348,3 +355,7 @@ elseif no_species == -1
     pbaspect([1 1 1])
     
 end
+
+
+%%
+
